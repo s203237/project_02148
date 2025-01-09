@@ -1,18 +1,17 @@
 package model;
 import java.time.LocalDateTime;
 
-public class Task extends BaseItem {
+public class TaskTuple extends BaseItemTuple {
     private String priority;
     private String category;
 
     // Constructor
-    public Task(String title, String description, LocalDateTime dateTime, String priority, String category) {
+    public TaskTuple(String title, String description, LocalDateTime dateTime, String priority, String category) {
         super(title, description, dateTime);
         this.priority = priority;
         this.category = category;
     }
 
-    // Getters and setters
     public String getPriority() {
         return priority;
     }
