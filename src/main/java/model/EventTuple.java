@@ -1,13 +1,12 @@
 package model;
-
 import java.time.LocalDateTime;
 
-public class Event extends BaseItem {
+public class EventTuple extends BaseItemTuple {
     private String location;
     private boolean isRecurring;
 
     // Constructor
-    public Event(String title, String description, LocalDateTime dateTime, String location, boolean isRecurring) {
+    public EventTuple(String title, String description, LocalDateTime dateTime, String location, boolean isRecurring) {
         super(title, description, dateTime);
         this.location = location;
         this.isRecurring = isRecurring;
