@@ -5,10 +5,27 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="435f807f-75e3-49d3-9578-2ede3cfe0b27" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/Repositories/EventRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Repositories/TaskRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Repositories/UserRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/dk/dtu/project/ProjectApplication.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/main/java/BackendApplication.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/Pages/DayView.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/Pages/MainPage.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/Pages/MonthView.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/Pages/WeekView.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/Services/api.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/components/CalendarView.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/components/EventList.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/components/EventModal.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/components/TodoList.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/views/EventPage.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/views/LoginPage.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/views/RegisterPage.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/dk/dtu/Main.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/model/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/model/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/ui/CalendarView.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/ui/EventDetailView.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/ui/ListView.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -25,6 +42,9 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
   <component name="ProjectColorInfo">{
   &quot;customColor&quot;: &quot;&quot;,
   &quot;associatedIndex&quot;: 0
@@ -38,9 +58,11 @@
   </component>
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/lynguyenhansen/Documents/SOFTWARE/SEMESTER 6/project_02148&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -48,7 +70,7 @@
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
     &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.24971232&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.4921875&quot;,
     &quot;settings.editor.selected.configurable&quot;: &quot;org.jetbrains.plugins.github.ui.GithubSettingsConfigurable&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
@@ -63,6 +85,9 @@
       <updated>1736419842761</updated>
       <workItem from="1736419844391" duration="13846000" />
       <workItem from="1736558160607" duration="301000" />
+      <workItem from="1736726136108" duration="8832000" />
+      <workItem from="1736765349208" duration="314000" />
+      <workItem from="1736765677774" duration="11461000" />
     </task>
     <servers />
   </component>
