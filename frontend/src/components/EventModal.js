@@ -1,15 +1,31 @@
-import React, { useState } from "react";
+import React, {useEffect, useState} from "react";
 
 const EventModal = ({ isOpen, onClose, onSave, eventData }) => {
     // Status for event information fields
     const [title, setTitle] = useState(eventData?.title || "");
     const [description, setDescription] = useState(eventData?.description || "");
+    const[location, setLocation]=useState(eventData?.location||"");
     const [startTime, setStartTime] = useState(eventData?.startTime || "");
     const [endTime, setEndTime] = useState(eventData?.endTime || "");
 
+    useEffect(() => {
+        if (eventData){
+            setTitle(eventData.title);
+            setDescription(eventData.description);
+            setLocation(eventData.location);
+            setStartTime(eventData.startTime);
+            setEndTime(eventData.endTime);
+        }else {
+            setTitle("");
+            setDescription("");
+            setLocation("");
+            setStartTime("");
+            setEndTime("");
+        }
 
+    }, [eventData]);
     const handleSave = () => {
-        const newEvent = { title, description, startTime, endTime };
+        const newEvent = { title, description,location, startTime, endTime };
         onSave(newEvent); // function callback to save event
         onClose(); // close modal after save
     };
@@ -32,14 +48,21 @@ const EventModal = ({ isOpen, onClose, onSave, eventData }) => {
                         />
                     </div>
                     <div style={formGroupStyle}>
-                        <label>description</label>
+                        <label>Description </label>
                         <textarea
                             value={description}
                             onChange={(e) => setDescription(e.target.value)}
                         />
                     </div>
                     <div style={formGroupStyle}>
-                        <label>Start time</label>
+                        <label>Location </label>
+                        <textarea
+                            value={location}
+                            onChange={(e) => setLocation(e.target.value)}
+                        />
+                    </div>
+                    <div style={formGroupStyle}>
+                        <label>Start time </label>
                         <input
                             type="datetime-local"
                             value={startTime}
@@ -48,7 +71,7 @@ const EventModal = ({ isOpen, onClose, onSave, eventData }) => {
                         />
                     </div>
                     <div style={formGroupStyle}>
-                        <label>End time</label>
+                        <label>End time </label>
                         <input
                             type="datetime-local"
                             value={endTime}
@@ -58,10 +81,10 @@ const EventModal = ({ isOpen, onClose, onSave, eventData }) => {
                     </div>
                     <div style={buttonGroupStyle}>
                         <button type="button" onClick={onClose} style={buttonStyle}>
-                            Hủy
+                            Cancel
                         </button>
                         <button type="button" onClick={handleSave} style={buttonStyle}>
-                            Lưu
+                           Save
                         </button>
                     </div>
                 </form>
