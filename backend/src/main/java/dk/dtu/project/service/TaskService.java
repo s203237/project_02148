@@ -1,4 +1,4 @@
-package service;
+package dk.dtu.project.service;
 import java.time.LocalDateTime;
 
 import model.EventTuple;

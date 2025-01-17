@@ -1,4 +1,4 @@
-package src.main.java.dk.dtu.project.service;
+package dk.dtu.project.service;
 
 import dk.dtu.project.model.User;
 import org.jspace.ActualField;

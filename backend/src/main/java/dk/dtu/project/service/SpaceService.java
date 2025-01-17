@@ -1,4 +1,4 @@
-package service;
+package dk.dtu.project.service;
 
 import org.jspace.SequentialSpace;
 import org.jspace.Space;
