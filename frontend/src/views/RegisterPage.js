@@ -1,65 +1,29 @@
-import React, { useState } from "react";
-import axios from "axios";
-
-const RegisterPage = () => {
-    const [username, setUsername] = useState("");
-    const [password, setPassword] = useState("");
+function Register() {
+    const [name, setName] = useState("");
     const [email, setEmail] = useState("");
-    const [success, setSuccess] = useState(false);
+    const [password, setPassword] = useState("");
 
-    const handleRegister = async (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        try {
-            await axios.post("http://localhost:8080/api/register", {
-                username,
-                password,
-                email,
-            });
-            setSuccess(true);
-        } catch (err) {
-            console.error(err);
-        }
+        const response = await fetch("http://localhost:8080/api/users/register", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ name, email, password }),
+        });
+
+        const data = await response.text();
+        alert(data);
     };
 
     return (
-        <div>
-            <h2>Đăng ký</h2>
-            {success ? (
-                <p>Đăng ký thành công! Hãy <a href="/">đăng nhập</a>.</p>
-            ) : (
-                <form onSubmit={handleRegister}>
-                    <div>
-                        <label>Tên đăng nhập:</label>
-                        <input
-                            type="text"
-                            value={username}
-                            onChange={(e) => setUsername(e.target.value)}
-                            required
-                        />
-                    </div>
-                    <div>
-                        <label>Email:</label>
-                        <input
-                            type="email"
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                            required
-                        />
-                    </div>
-                    <div>
-                        <label>Mật khẩu:</label>
-                        <input
-                            type="password"
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                            required
-                        />
-                    </div>
-                    <button type="submit">Đăng ký</button>
-                </form>
-            )}
-        </div>
+        <form onSubmit={handleSubmit}>
+            <h1>Register</h1>
+            <input type="text" placeholder="Name" value={name} onChange={(e) => setName(e.target.value)} />
+            <input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
+            <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
+            <button type="submit">Register</button>
+        </form>
     );
-};
+}
 
-export default RegisterPage;
+export default Register;
