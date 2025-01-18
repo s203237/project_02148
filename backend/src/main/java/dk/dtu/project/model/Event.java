@@ -10,10 +10,16 @@ import java.time.LocalDateTime;
 public class Event{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    @Column(nullable = false, length = 255)
     private String title;
+    @Column(length = 500)
     private String description;
+    @Column(name = "date_time", columnDefinition = "TIMESTAMP")
     private LocalDateTime dateTime;
+    @Column(length = 255)
     private String location;
+    @Column(name = "is_recurring")
     private boolean isRecurring;
 
     @ManyToOne
@@ -21,7 +27,8 @@ public class Event{
     private User user;
 
     // Constructor
-    public Event(String title, String description, LocalDateTime dateTime, String location, boolean isRecurring) {
+    public Event(long id,String title, String description, LocalDateTime dateTime, String location, boolean isRecurring) {
+        this.id=id;
         this.title = title;
         this.description = description;
         this.dateTime = dateTime;
@@ -29,10 +36,9 @@ public class Event{
         this.isRecurring = isRecurring;
     }
 
-    public Event() {
-
-    }
-
+    public Event() {}
+    public Long getId(){return id;}
+    public void setId(Long id){this.id =id;}
     public String getTitle() {
         return title;
     }

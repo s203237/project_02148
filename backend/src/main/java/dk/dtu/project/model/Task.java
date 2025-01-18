@@ -8,17 +8,24 @@ import jakarta.persistence.*;
 public class Task{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    @Column(nullable = false, length = 255)
     private String title;
+    @Column(length = 500)
     private String description;
+    @Column(name = "date_time", columnDefinition = "TIMESTAMP")
     private LocalDateTime dateTime;
+    @Column(length = 50)
     private String priority;
+    @Column(length = 50)
     private String category;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
     // Constructor
-    public Task(String title, String description, LocalDateTime dateTime, String priority, String category) {
+    public Task(Long id,String title, String description, LocalDateTime dateTime, String priority, String category) {
+        this.id =id;
         this.title = title;
         this.description = description;
         this.dateTime = dateTime;
@@ -29,6 +36,8 @@ public class Task{
     public Task() {}
 
     // Getters and setters
+    public Long getId(){return id;}
+    public void setId(Long id){this.id =id;}
     public String getTitle() {
         return title;
     }

@@ -1,45 +1,48 @@
 package dk.dtu.project.controller;
 
+import dk.dtu.project.model.LoginRequest;
+import dk.dtu.project.model.UserTuple;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import dk.dtu.project.service.UserService;
 import dk.dtu.project.model.User;
 
+
 @RestController
 @RequestMapping("/api/users")
 public class UserController {
-    @Autowired
-    private UserService userService;
 
+    private final UserService userService;
+    public UserController(UserService userService) {
+        this.userService = userService;
+    }
     // User Registration API
     @PostMapping("/register")
     public ResponseEntity<String> registerUser(@RequestBody User user) {
         try {
-            boolean isRegistered = userService.addUser(user);
-            if (isRegistered) {
-                return ResponseEntity.ok("Registration successful!!");
-            } else {
-                return ResponseEntity.badRequest().body("Email already exists!");
-            }
+            userService.registerUser(user.getEmail(), user.getName(), user.getPassword());
+            return ResponseEntity.ok("User registered successfully!");
         } catch (Exception e) {
-            return ResponseEntity.status(500).body("Internal Server Error: " + e.getMessage());
+            return ResponseEntity.badRequest().body("Error: " + e.getMessage());
         }
     }
 
 
     // User Login API
     @PostMapping("/login")
-    public ResponseEntity<String> loginUser(@RequestBody User user) {
+    public ResponseEntity<User> loginUser(@RequestBody LoginRequest loginRequest) {
         try {
-            boolean isAuthenticated = userService.authenticate(user.getEmail(), user.getPassword());
-            if (isAuthenticated) {
-                return ResponseEntity.ok("Login successful!");
+            User authenticatedUser = userService.authenticate(loginRequest.getEmail(), loginRequest.getPassword());
+            if (authenticatedUser != null) {
+                // Returns user information if login is successful
+                return ResponseEntity.ok(authenticatedUser);
             } else {
-                return ResponseEntity.badRequest().body("Invalid email or password!");
+                // Return authentication error if email or password is incorrect
+                return ResponseEntity.status(401).body(null);
             }
         } catch (Exception e) {
-            return ResponseEntity.status(500).body("Internal Server Error: " + e.getMessage());
+            return ResponseEntity.status(500).body(null);
         }
     }
 

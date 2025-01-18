@@ -1,4 +1,4 @@
-package com.example.backend.model;
+package dk.dtu.project.model;
 
 import lombok.Data;
 

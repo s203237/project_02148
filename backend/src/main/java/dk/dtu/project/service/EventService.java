@@ -1,36 +1,89 @@
 package dk.dtu.project.service;
+import dk.dtu.project.model.Event;
+import dk.dtu.project.model.EventTuple;
+import dk.dtu.project.repositories.EventRepository;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.stereotype.Service;
 
-import org.jspace.Space;
-import org.jspace.SequentialSpace;
-import org.jspace.ActualField;
-import org.jspace.FormalField;
-
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
+@Service
 public class EventService {
-    private Space space;
 
-    public EventService(Space space) {
-        this.space = space;
+    private final EventRepository eventRepository;
+    private final JavaMailSender mailSender;
+
+    public EventService(EventRepository eventRepository, JavaMailSender mailSender) {
+        this.eventRepository = eventRepository;
+        this.mailSender = mailSender;
     }
-    //Add an event to the space
-    public void addEvent(EventTuple event) throws InterruptedException {
-        space.put(event.getTitle(), event.getDescription(), event.getDateTime(), event.getLocation(), event.isRecurring());
+    public EventTuple toEventTuple(Event event) {
+        return new EventTuple(
+                event.getTitle(),
+                event.getDateTime(),
+                event.getLocation()
+
+        );
     }
-    //Query an event based on its title
-    public EventTuple getEvent(String title) throws InterruptedException {
-        Object[] tuple = space.query(new ActualField(title), new FormalField(String.class), new FormalField(LocalDateTime.class), new FormalField(String.class), new FormalField(Boolean.class));
-        return new EventTuple((String) tuple[0], (String) tuple[1], (LocalDateTime) tuple[2], (String) tuple[3], (Boolean) tuple[4]);
+    // Create a new event
+    public void createEvent(Event event) throws InterruptedException {
+        eventRepository.saveEvent(event);
     }
-    // update an event based on its title
-    //first remove the current tuple with the corresponding title
-    // then add new tuple to space with updated information
-    public void updateEvent(String title, EventTuple updatedEvent) throws InterruptedException {
-        space.get(new ActualField(title), new FormalField(String.class), new FormalField(LocalDateTime.class), new FormalField(String.class), new FormalField(Boolean.class));
-        space.put(updatedEvent.getTitle(), updatedEvent.getDescription(), updatedEvent.getDateTime(), updatedEvent.getLocation(), updatedEvent.isRecurring());
+
+    // Get all events
+    public List<EventTuple> getAllEvents() throws InterruptedException {
+        List<Object[]> tuples = eventRepository.findAllEvents();
+        List<EventTuple> events = new ArrayList<>();
+        for (Object[] tuple : tuples) {
+            events.add(new EventTuple((String) tuple[1], (LocalDateTime) tuple[3], (String) tuple[4]));
+        }
+        return events;
     }
-    // Delete an event based on title
-    public void deleteEvent(String title) throws InterruptedException {
-        space.get(new ActualField(title), new FormalField(String.class), new FormalField(LocalDateTime.class), new FormalField(String.class), new FormalField(Boolean.class));
+
+    // Get event by ID
+    public EventTuple getEventById(Long id) throws InterruptedException {
+        Object[] tuple = eventRepository.findEventById(id);
+        if (tuple != null) {
+            return new EventTuple((String) tuple[1], (LocalDateTime) tuple[3], (String) tuple[4]);
+        }
+        return null;
+    }
+
+    // Update an event
+    public boolean updateEvent(Long id, Event updatedEvent) throws InterruptedException {
+        if (getEventById(id) == null) {
+            return false;
+        }
+        eventRepository.deleteEventById(id);
+        eventRepository.saveEvent(updatedEvent);
+        return true;
+    }
+
+    // Delete an event
+    public boolean deleteEvent(Long id) throws InterruptedException {
+        if (getEventById(id) == null) {
+            return false;
+        }
+        eventRepository.deleteEventById(id);
+        return true;
+    }
+
+    // Send email reminder for an event
+    public void sendEmailReminder(String recipientEmail, String eventDetails) {
+        MimeMessage message = mailSender.createMimeMessage();
+        try {
+            MimeMessageHelper helper = new MimeMessageHelper(message, true);
+            helper.setTo(recipientEmail);
+            helper.setSubject("Event Reminder");
+            helper.setText(eventDetails);
+            mailSender.send(message);
+        } catch (MessagingException e) {
+            e.printStackTrace();
+        }
     }
 }

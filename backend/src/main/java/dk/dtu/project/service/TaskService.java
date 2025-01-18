@@ -1,37 +1,59 @@
 package dk.dtu.project.service;
-import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+import dk.dtu.project.model.Task;
+import dk.dtu.project.model.TaskTuple;
+import dk.dtu.project.repositories.TaskRepository;;
+import org.springframework.stereotype.Service;
 
-import model.EventTuple;
-import model.TaskTuple;
-import org.jspace.ActualField;
-import org.jspace.FormalField;
-import org.jspace.Space;
-
+@Service
 public class TaskService {
-    private Space space;
+    private final TaskRepository taskRepository;
 
-    public TaskService(Space space) {
-        this.space = space;
+    public TaskService(TaskRepository taskRepository) {
+        this.taskRepository =taskRepository;
     }
+
     // add a task to space
-    public void addTask(TaskTuple task) throws InterruptedException {
-        space.put(task.getTitle(), task.getDescription(), task.getDateTime(), task.getPriority(), task.getCategory());
+    public void addTask(Task task) throws InterruptedException {
+        taskRepository.addTask(task);}
+
+    // Get all tasks
+    public List<TaskTuple> getAllTasks() throws InterruptedException {
+        List<Object[]> tuples = taskRepository.getAllTasks();
+        List<TaskTuple> tasks = new ArrayList<>();
+        for (Object[] tuple : tuples) {
+            tasks.add(new TaskTuple((String) tuple[0], (String) tuple[1],  (String) tuple[3], (String) tuple[4]));
+        }
+        return tasks;
     }
-    //Query a task based on title
-    public TaskTuple getTask(String title) throws InterruptedException {
-        Object[] tuple = space.query(new ActualField(title), new FormalField(String.class), new FormalField(LocalDateTime.class), new FormalField(String.class), new FormalField(String.class));
-        return new TaskTuple((String) tuple[0], (String) tuple[1], (LocalDateTime) tuple[2], (String) tuple[3], (String) tuple[4]);
+
+    // Get task by ID
+    public TaskTuple getTaskById(long id) throws InterruptedException {
+        Object[] tuple = taskRepository.getTaskById(id);
+        if (tuple != null) {
+            return new TaskTuple((String) tuple[0], (String) tuple[1],  (String) tuple[3], (String) tuple[4]);
+        }
+        return null;
     }
-    // update a task based on its title
-    //first remove the current tuple with the corresponding title
-    // then add new tuple to space with updated information
-    public void updateTask(String title, TaskTuple updatedTask) throws InterruptedException {
-        space.get(new ActualField(title), new FormalField(String.class), new FormalField(LocalDateTime.class), new FormalField(String.class), new FormalField(String.class));
-        space.put(updatedTask.getTitle(), updatedTask.getDescription(), updatedTask.getDateTime(), updatedTask.getPriority(), updatedTask.getCategory());
+
+    // Update an task
+    public boolean updateTask(long id, Task updatedTask) throws InterruptedException {
+        if (getTaskById(id) == null) {
+            return false;
+        }
+        taskRepository.deleteTaskById(id);
+        taskRepository.addTask(updatedTask);
+        return true;
     }
-    // delete a task based on its title
-    public void deleteTask(String title) throws InterruptedException {
-        space.get(new ActualField(title), new FormalField(String.class), new FormalField(LocalDateTime.class), new FormalField(String.class), new FormalField(String.class));
+
+    // Delete an task
+    public boolean deleteTask(Long id) throws InterruptedException {
+        if (getTaskById(id) == null) {
+            return false;
+        }
+        taskRepository.deleteTaskById(id);
+        return true;
     }
 }
 
