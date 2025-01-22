@@ -3,7 +3,7 @@ import java.util.ArrayList;
 import java.util.List;
 import dk.dtu.project.model.Task;
 import dk.dtu.project.model.TaskTuple;
-import dk.dtu.project.repositories.TaskRepository;;
+import dk.dtu.project.repositories.TaskRepository;
 import org.springframework.stereotype.Service;
 
 @Service
