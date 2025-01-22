@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-function Login() {
+function LoginPage({onLogin}) {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState(false);
@@ -19,6 +19,7 @@ function Login() {
             if (response.ok) {
                 const data = await response.json();
                 alert("Login successful!");
+                onLogin();
                 navigate("/main");
             } else {
                 setError(true);
@@ -66,18 +67,18 @@ function Login() {
                         style={{
                             padding: "10px",
                             marginBottom: "10px",
-                            backgroundColor: "#f44336",
+                            backgroundColor: "#f4b136",
                             color: "white",
                             border: "none",
                             cursor: "pointer",
                         }}
-                        onClick={() => setError(false)} // Reset lỗi, cho phép retry
+                        onClick={() => setError(false)}
                     >
                         Retry Login
                     </button>
 
                     <div>
-                        <p>Do you want to recreate your account?</p>
+                        <p>Do you want to recreate an account?</p>
                         <button
                             style={{
                                 padding: "10px",
@@ -86,9 +87,9 @@ function Login() {
                                 border: "none",
                                 cursor: "pointer",
                             }}
-                            onClick={() => navigate("/register")} // Chuyển hướng tới trang đăng ký
+                            onClick={() => navigate("/register")}
                         >
-                            Register
+                            Sign Up
                         </button>
                     </div>
                 </div>
@@ -103,9 +104,9 @@ function Login() {
                             border: "none",
                             cursor: "pointer",
                         }}
-                        onClick={() => navigate("/register")} // Chuyển hướng tới trang đăng ký
+                        onClick={() => navigate("/register")}
                     >
-                        Register
+                    Sign Up
                     </button>
                 </div>
             )}
@@ -113,4 +114,4 @@ function Login() {
     );
 }
 
-export default Login;
+export default LoginPage;

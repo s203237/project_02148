@@ -54,12 +54,12 @@ return(
                 required
             />
             <button type="submit" style={{ padding: "10px", backgroundColor: "#4CAF50", color: "white", border: "none", cursor: "pointer" }}>
-                Register
+                Sign Up
             </button>
         </form>
 
         {error && (
-            <div style={{ color: "red", marginTop: "10px" }}>
+            <div style={{ color:"amber", marginTop: "10px" }}>
                 <strong>Error:</strong> {error}
             </div>
         )}

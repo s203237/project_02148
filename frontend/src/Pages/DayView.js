@@ -1,10 +1,10 @@
 import React, {useEffect, useState} from "react";
 import EventModal from "../components/EventModal";
+import TodoList from "../components/TodoList";
 
 const DayView = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [events, setEvents] = useState([]);
-    const [todos, setTodos] = useState(["Todo 1", "Todo 2", "Todo 3"]);
     const[selectedEvent, setSelectedEvent]= useState(null);
     const [timelineHours, setTimelineHours] = useState([]);
     const [startHour, setStartHour] = useState(new Date().getHours());
@@ -170,13 +170,8 @@ const DayView = () => {
                 </div>
 
                 {/*  todo list */}
-                <div>
-                    <h2>Todo List</h2>
-                    <ul>
-                        {todos.map((todo, index) => (
-                            <li key={index}>{todo}</li>
-                        ))}
-                    </ul>
+                <div style={{ flex: 1, padding: "20px" }}>
+                    <TodoList />
                 </div>
             </div>
         </div>

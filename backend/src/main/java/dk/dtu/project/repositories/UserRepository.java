@@ -16,9 +16,10 @@ public class UserRepository {
     }
 
     // Add/ register new users to Space
-    public void addUser(String email, String name, String password) throws InterruptedException {
+    public void registerUser(String email, String name, String password) throws InterruptedException {
         space.put(email, name, password);
     }
+
 
     // Query user by email
     public Object[] getUserByEmail(String email) throws InterruptedException {
